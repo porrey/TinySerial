@@ -3,17 +3,19 @@
 #include <DallasTemperature.h>
 
 // ***
-// *** RX, TX
+// *** Define the RX and TX pins. Choose any two
+// *** pins that are unused. Try to avoid D0 (pin 5)
+// *** and D2 (pin 7) if you plan to use I2C.
 // ***
-#define RX    3
-#define TX    4
+#define RX    3   // *** D3, Pin 2
+#define TX    4   // *** D4, Pin 3
 
 // ***
 // *** Define the software based serial port. Using the
 // *** name Serial so that code can be used on other
 // *** platforms that support hardware based serial. On
-// *** chips that support the hardware serial, just comment
-// *** this line.
+// *** chips that support the hardware serial, just
+// *** comment this line.
 // ***
 SoftwareSerial Serial(RX, TX);
 
@@ -28,15 +30,29 @@ SoftwareSerial Serial(RX, TX);
 // ***                               GND   [4]   [5]   PB0 (MOSI/DI/SDA/AIN0/OC0A/OC1A/AREF/PCINT0)
 // ***
 
-// *********************************
+// *****************************************
 // ***
-// *** For FTDI/232 Cale:
-// *** Connect 3V (red)    to Pin 8
+// *** For FTDI/232 Cable:
+// *** https://www.adafruit.com/products/70
+// ***
+// *** Connect 3V  (red)    to Pin 8
+// *** Connect GND (black)  to Pin 4
+// *** Connect RX  (yellow) to Pin 3
+// *** Connect TX  (orange) to Pin 2
+// ***
+// *****************************************
+
+// *****************************************
+// ***
+// *** For Serial TTL Cable:
+// *** https://www.adafruit.com/products/954
+// ***
+// *** Connect 3V  (red)   to Pin 8
 // *** Connect GND (black) to Pin 4
-// *** Connect RX (yellow) to Pin 3
-// *** Connect TX (orange) to Pin 2
+// *** Connect RX  (white) to Pin 3
+// *** Connect TX  (green) to Pin 2
 // ***
-// *********************************
+// *****************************************
 
 // ***
 // *** Pin on which the OneWire data
@@ -48,12 +64,12 @@ SoftwareSerial Serial(RX, TX);
 // *** Setup a oneWire instance to communicate with any OneWire
 // *** devices (not just Maxim/Dallas temperature ICs).
 // ***
-OneWire _oneWire(ONE_WIRE_BUS);
+OneWire _oneWire = OneWire(ONE_WIRE_BUS);
 
 // ***
 // *** Pass our oneWire reference to Dallas Temperature.
 // ***
-DallasTemperature _sensors(&_oneWire);
+DallasTemperature _sensors = DallasTemperature(&_oneWire);
 
 void setup()
 {
